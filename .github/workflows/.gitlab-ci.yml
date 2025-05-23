@@ -1,0 +1,22 @@
+stages:
+  - build
+  - test
+
+variables:
+  MSBUILD_PATH: 'C:\GitHub\card2'
+  SOLUTION_FILE: 'card2.sln'
+
+build:
+  image: mcr.microsoft.com/windows/servercore:ltsc2019
+  stage: build
+  script:
+    - echo "Installing Visual Studio Build Tools..."
+    - powershell -Command "Start-Process 'vs_BuildTools.exe' -ArgumentList '/quiet /norestart' -Wait"
+    - echo "Building the project..."
+    - "$MSBUILD_PATH\MSBuild.exe $SOLUTION_FILE /p:Configuration=Release /p:Platform='x64'"
+
+test:
+  stage: test
+  script:
+    - echo "Running tests..."
+    - "C:\GitHub\card2\x64\Release\card2.exe"
