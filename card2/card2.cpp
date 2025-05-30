@@ -8,14 +8,11 @@ using namespace std;
 const int DECK_SIZE = 36;
 const int HAND_SIZE = 18;
 
-// Функция для инициализации и перемешивания колоды
 void initializeAndShuffleDeck(int deck[]) {
-    // Заполняем колоду значениями от 6 до 14 (6,7,8,9,10,Валет=11,Дама=12,Король=13,Туз=14)
     for (int i = 0; i < DECK_SIZE; ++i) {
         deck[i] = 6 + (i % 9);
     }
 
-    // Перемешиваем колоду
     srand(time(0));
     for (int i = 0; i < DECK_SIZE; ++i) {
         int j = rand() % DECK_SIZE;
@@ -23,7 +20,6 @@ void initializeAndShuffleDeck(int deck[]) {
     }
 }
 
-// Функция для раздачи карт игрокам
 void dealCards(const int deck[], int player1Hand[], int player2Hand[]) {
     for (int i = 0; i < HAND_SIZE; ++i) {
         player1Hand[i] = deck[i];
@@ -31,14 +27,13 @@ void dealCards(const int deck[], int player1Hand[], int player2Hand[]) {
     }
 }
 
-// Функция для определения победителя раунда
 int determineRoundWinner(int card1, int card2) {
     if (card1 > card2) return 1;
     if (card2 > card1) return 2;
-    return 0; // Ничья
+    return 0;
 }
 
-// Функция для игры
+
 void playGame(int player1Hand[], int player2Hand[],
     int player1Discard[],
     int& discardCount1, int& discardCount2) {
@@ -48,23 +43,23 @@ void playGame(int player1Hand[], int player2Hand[],
         int card1 = player1Hand[cardsPlayed];
         int card2 = player2Hand[cardsPlayed];
 
-        cout << "Раунд " << cardsPlayed + 1 << ": ";
-        cout << "Игрок 1 (" << card1 << ") vs Игрок 2 (" << card2 << ") - ";
+        cout << "Raund " << cardsPlayed + 1 << ": ";
+        cout << "Player 1 (" << card1 << ") vs Player 2 (" << card2 << ") - ";
 
         int winner = determineRoundWinner(card1, card2);
 
         if (winner == 1) {
-            cout << "Игрок 1 побеждает!" << endl;
+            cout << "Player 1 WIN!" << endl;
             player1Discard[discardCount1++] = card1;
             player1Discard[discardCount1++] = card2;
         }
         else if (winner == 2) {
-            cout << "Игрок 2 побеждает!" << endl;
+            cout << "Player 2 WIN!" << endl;
             player1Discard[discardCount2++] = card1;
             player1Discard[discardCount2++] = card2;
         }
         else {
-            cout << "Ничья! Карты идут в сброс каждого игрока" << endl;
+            cout << "DRAW" << endl;
             player1Discard[discardCount1++] = card1;
             player1Discard[discardCount2++] = card2;
         }
@@ -76,41 +71,37 @@ void playGame(int player1Hand[], int player2Hand[],
 // Функция для вывода результатов
 void printResults(int player1Discard[],
     int discardCount1, int discardCount2) {
-    cout << "\n=== Результаты игры ===" << endl;
-    cout << "Игрок 1: " << discardCount1 << " карт в сбросе" << endl;
-    cout << "Игрок 2: " << discardCount2 << " карт в сбросе" << endl;
+    cout << "\n=== game results ===" << endl;
+    cout << "player 1: " << discardCount1 << " thrown cards" << endl;
+    cout << "player 2: " << discardCount2 << " thrown cards" << endl;
 
     if (discardCount1 > discardCount2) {
-        cout << "Победил Игрок 1!" << endl;
+        cout << "Player 1 WIN!" << endl;
     }
     else if (discardCount2 > discardCount1) {
-        cout << "Победил Игрок 2!" << endl;
+        cout << "Player 2 WIN!" << endl;
     }
     else {
-        cout << "Ничья!" << endl;
+        cout << "even!" << endl;
     }
     cout << endl;
 }
 
 int main() {
-    setlocale(LC_ALL, "Russian");
-    int deck[DECK_SIZE];               // Массив колоды
-    int player1Hand[HAND_SIZE];        // Массив руки первого игрока
-    int player2Hand[HAND_SIZE];        // Массив руки второго игрока
-    int playerDiscard[DECK_SIZE];     // Массив сброса первого игрока
+    int deck[DECK_SIZE];           
+    int player1Hand[HAND_SIZE];     
+    int player2Hand[HAND_SIZE];     
+    int playerDiscard[DECK_SIZE];     
 
-    int discardCount1 = 0;             // Счетчик сброса первого игрока
-    int discardCount2 = 0;             // Счетчик сброса второго игрока
+    int discardCount1 = 0;            
+    int discardCount2 = 0;            
 
-    // Инициализация игры
     initializeAndShuffleDeck(deck);
     dealCards(deck, player1Hand, player2Hand);
 
-    // Играем
     playGame(player1Hand, player2Hand,
         playerDiscard,discardCount1, discardCount2);
 
-    // Выводим результаты
     printResults(playerDiscard, discardCount1, discardCount2);
     int ex;
     cin >> ex;
