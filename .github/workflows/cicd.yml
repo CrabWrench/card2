@@ -19,11 +19,11 @@ jobs:
 
       - name: Build solution
         run: |
-          msbuild card2.sln /p:Configuration=Release
+          msbuildc card2.sln /p:Configuration=Release
 
       - name: Run tests
         run: |
-          cd C:\GitHub\card2
+          cd C:\GitHub\card2\x64\Release
           card2.exe
       - name: Check build success
         run: echo "Build completed successfully!"

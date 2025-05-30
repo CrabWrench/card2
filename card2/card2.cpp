@@ -112,6 +112,8 @@ int main() {
 
     // Выводим результаты
     printResults(playerDiscard, discardCount1, discardCount2);
+    int ex;
+    cin >> ex;
 
     return 0;
 }
