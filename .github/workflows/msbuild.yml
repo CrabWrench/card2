@@ -11,34 +11,28 @@ on:
   pull_request:
     branches: [ "master" ]
 
-env:
-  # Path to the solution file relative to the root of the project.
-  SOLUTION_FILE_PATH: .
+stages:
+  - build
+  - test
 
-  # Configuration type to build.
-  # You can convert this to a build matrix if you need coverage of multiple configuration types.
-  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-  BUILD_CONFIGURATION: Release
+variables:
+  MSBUILD_PATH: 'C:\GitHub\card2'
+  SOLUTION_FILE: 'card2.sln'
 
-permissions:
-  contents: read
+build:
+  image: mcr.microsoft.com/windows/servercore:ltsc2019
+  stage: build
+  script:
+    - echo "Installing Visual Studio Build Tools..."
+    - powershell -Command "Start-Process 'vs_BuildTools.exe' -ArgumentList '/quiet /norestart' -Wait"
+    - echo "Building the project..."
+    - "$MSBUILD_PATH\MSBuild.exe $SOLUTION_FILE /p:Configuration=Release /p:Platform='x64'"
 
-jobs:
-  build:
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
-
-    - name: Build
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: |
-        mkdir build
-        g++ card2\card2.cpp -o .\build\card2.exe
-      
+test:
+  stage: test
+  script:
+    - echo "Running tests..."
+    - "C:\GitHub\card2\x64\Release\card2.exe"
       
 
 
