@@ -1,4 +1,5 @@
-pipeline {
+pipeline 
+{
     agent any
 
     environment {
@@ -33,7 +34,7 @@ pipeline {
                 }
             }
         }
-
+    }
     post {
         success {
             // Действия, которые выполняются при успешной сборке
