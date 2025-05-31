@@ -29,7 +29,7 @@ pipeline {
                 script {
                     // Здесь добавьте команду для запуска ваших тестов (если есть)
                     // Например, если вы используете Google Test
-                    bat 'cd build\\${CONFIGURATION} && card2.exe'
+                    bat 'cd ${CONFIGURATION} && card2.exe'
                 }
             }
         }
