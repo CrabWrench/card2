@@ -30,7 +30,7 @@ pipeline
         {
             steps {
                 script {
-                    bat 'cd build\\${CONFIGURATION}'
+                    bat 'cd build\${CONFIGURATION}'
                     bat 'card2.exe'
                 }
             }
