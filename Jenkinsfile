@@ -4,9 +4,8 @@ pipeline
 
     environment
     {
-        // Настройки для компиляции
-        CONFIGURATION = 'Release' // Или 'Debug' в зависимости от ваших нужд
-        SOLUTION_FILE = 'card2.sln' // Имя вашего файла решения Visual Studio
+        CONFIGURATION = 'Release'
+        SOLUTION_FILE = 'card2.sln'
     }
 
     stages
@@ -14,8 +13,7 @@ pipeline
         stage('Clone Repository')
         {
             steps {
-                // Клонируем репозиторий из Git
-                git url: 'https://github.com/CrabWrench/card2.git'
+                git url: 'https://github.com/CrabWrench/card2'
             }
         }
         
@@ -23,7 +21,6 @@ pipeline
         {
             steps {
                 script {
-                    // Строим проект с использованием MSBuild
                     bat "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe\" ${SOLUTION_FILE} /p:Configuration=${CONFIGURATION}"
                 }
             }
@@ -33,8 +30,6 @@ pipeline
         {
             steps {
                 script {
-                    // Здесь добавьте команду для запуска ваших тестов (если есть)
-                    // Например, если вы используете Google Test
                     bat 'cd build\\${CONFIGURATION} && card2.exe'
                 }
             }
