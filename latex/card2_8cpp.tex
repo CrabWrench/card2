@@ -1,0 +1,120 @@
+\doxysection{card2.\+cpp File Reference}
+\label{card2_8cpp}\index{card2.cpp@{card2.cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$ctime$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Timer}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ initialize\+And\+Shuffle\+Deck} (int deck[$\,$])
+\item 
+void \textbf{ deal\+Cards} (const int deck[$\,$], int player1\+Hand[$\,$], int player2\+Hand[$\,$])
+\item 
+int \textbf{ determine\+Round\+Winner} (int card1, int card2)
+\item 
+void \textbf{ play\+Game} (int player1\+Hand[$\,$], int player2\+Hand[$\,$], int player1\+Discard[$\,$], int \&discard\+Count1, int \&discard\+Count2)
+\item 
+void \textbf{ print\+Results} (int player1\+Discard[$\,$], int discard\+Count1, int discard\+Count2)
+\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const int \textbf{ DECK\+\_\+\+SIZE} = 36
+\item 
+const int \textbf{ HAND\+\_\+\+SIZE} = 18
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\index{card2.cpp@{card2.cpp}!dealCards@{dealCards}}
+\index{dealCards@{dealCards}!card2.cpp@{card2.cpp}}
+\doxysubsubsection{dealCards()}
+{\footnotesize\ttfamily \label{card2_8cpp_abaac02c471c8f5beac81bdc9fc2136cb} 
+void deal\+Cards (\begin{DoxyParamCaption}\item[{const int}]{deck}{[$\,$], }\item[{int}]{player1\+Hand}{[$\,$], }\item[{int}]{player2\+Hand}{[$\,$]}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 43} of file \textbf{ card2.\+cpp}.
+
+\index{card2.cpp@{card2.cpp}!determineRoundWinner@{determineRoundWinner}}
+\index{determineRoundWinner@{determineRoundWinner}!card2.cpp@{card2.cpp}}
+\doxysubsubsection{determineRoundWinner()}
+{\footnotesize\ttfamily \label{card2_8cpp_ae44e19bc420e5189bc1c78b661c84da7} 
+int determine\+Round\+Winner (\begin{DoxyParamCaption}\item[{int}]{card1}{, }\item[{int}]{card2}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 50} of file \textbf{ card2.\+cpp}.
+
+\index{card2.cpp@{card2.cpp}!initializeAndShuffleDeck@{initializeAndShuffleDeck}}
+\index{initializeAndShuffleDeck@{initializeAndShuffleDeck}!card2.cpp@{card2.cpp}}
+\doxysubsubsection{initializeAndShuffleDeck()}
+{\footnotesize\ttfamily \label{card2_8cpp_ab67f807093c123b38bb8dd71f3ea6a30} 
+void initialize\+And\+Shuffle\+Deck (\begin{DoxyParamCaption}\item[{int}]{deck}{[$\,$]}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 31} of file \textbf{ card2.\+cpp}.
+
+\index{card2.cpp@{card2.cpp}!main@{main}}
+\index{main@{main}!card2.cpp@{card2.cpp}}
+\doxysubsubsection{main()}
+{\footnotesize\ttfamily \label{card2_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 110} of file \textbf{ card2.\+cpp}.
+
+\index{card2.cpp@{card2.cpp}!playGame@{playGame}}
+\index{playGame@{playGame}!card2.cpp@{card2.cpp}}
+\doxysubsubsection{playGame()}
+{\footnotesize\ttfamily \label{card2_8cpp_a61bb796b6b1e265684c2e42c51768c1c} 
+void play\+Game (\begin{DoxyParamCaption}\item[{int}]{player1\+Hand}{[$\,$], }\item[{int}]{player2\+Hand}{[$\,$], }\item[{int}]{player1\+Discard}{[$\,$], }\item[{int \&}]{discard\+Count1}{, }\item[{int \&}]{discard\+Count2}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 57} of file \textbf{ card2.\+cpp}.
+
+\index{card2.cpp@{card2.cpp}!printResults@{printResults}}
+\index{printResults@{printResults}!card2.cpp@{card2.cpp}}
+\doxysubsubsection{printResults()}
+{\footnotesize\ttfamily \label{card2_8cpp_a6f4145e37406d216c61cc3dc64368d43} 
+void print\+Results (\begin{DoxyParamCaption}\item[{int}]{player1\+Discard}{[$\,$], }\item[{int}]{discard\+Count1}{, }\item[{int}]{discard\+Count2}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 92} of file \textbf{ card2.\+cpp}.
+
+
+
+\doxysubsection{Variable Documentation}
+\index{card2.cpp@{card2.cpp}!DECK\_SIZE@{DECK\_SIZE}}
+\index{DECK\_SIZE@{DECK\_SIZE}!card2.cpp@{card2.cpp}}
+\doxysubsubsection{DECK\_SIZE}
+{\footnotesize\ttfamily \label{card2_8cpp_a2e56ea090c1b7e74d9b0c2be310c003f} 
+const int DECK\+\_\+\+SIZE = 36}
+
+
+
+Definition at line \textbf{ 28} of file \textbf{ card2.\+cpp}.
+
+\index{card2.cpp@{card2.cpp}!HAND\_SIZE@{HAND\_SIZE}}
+\index{HAND\_SIZE@{HAND\_SIZE}!card2.cpp@{card2.cpp}}
+\doxysubsubsection{HAND\_SIZE}
+{\footnotesize\ttfamily \label{card2_8cpp_a05698c7a647d9f92ed82465d20c1cb35} 
+const int HAND\+\_\+\+SIZE = 18}
+
+
+
+Definition at line \textbf{ 29} of file \textbf{ card2.\+cpp}.
+

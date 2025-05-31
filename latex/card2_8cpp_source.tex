@@ -1,0 +1,137 @@
+\doxysection{card2.\+cpp}
+\label{card2_8cpp_source}\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <ctime>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }Timer\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00009\ \ \ \ \ Timer()\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ start\_time\ =\ std::chrono::steady\_clock::now();}
+\DoxyCodeLine{00011\ \ \ \ \ \}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{void}\ reset()\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ start\_time\ =\ std::chrono::steady\_clock::now();}
+\DoxyCodeLine{00015\ \ \ \ \ \}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{double}\ elapsed()\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ end\_time\ =\ std::chrono::steady\_clock::now();}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ std::chrono::duration<double>\ elapsed\_seconds\ =\ end\_time\ -\/\ start\_time;}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ elapsed\_seconds.count();}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00024\ \ \ \ \ std::chrono::steady\_clock::time\_point\ start\_time;}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ DECK\_SIZE\ =\ 36;}
+\DoxyCodeLine{00029\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ HAND\_SIZE\ =\ 18;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{void}\ initializeAndShuffleDeck(\textcolor{keywordtype}{int}\ deck[])\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ DECK\_SIZE;\ ++i)\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ deck[i]\ =\ 6\ +\ (i\ \%\ 9);}
+\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ srand(time(0));}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ DECK\_SIZE;\ ++i)\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ j\ =\ rand()\ \%\ DECK\_SIZE;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ swap(deck[i],\ deck[j]);}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ dealCards(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ deck[],\ \textcolor{keywordtype}{int}\ player1Hand[],\ \textcolor{keywordtype}{int}\ player2Hand[])\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ HAND\_SIZE;\ ++i)\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ player1Hand[i]\ =\ deck[i];}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ player2Hand[i]\ =\ deck[i\ +\ HAND\_SIZE];}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{int}\ determineRoundWinner(\textcolor{keywordtype}{int}\ card1,\ \textcolor{keywordtype}{int}\ card2)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{if}\ (card1\ >\ card2)\ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{if}\ (card2\ >\ card1)\ \textcolor{keywordflow}{return}\ 2;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00054\ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{void}\ playGame(\textcolor{keywordtype}{int}\ player1Hand[],\ \textcolor{keywordtype}{int}\ player2Hand[],}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ player1Discard[],}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{int}\&\ discardCount1,\ \textcolor{keywordtype}{int}\&\ discardCount2)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{int}\ cardsPlayed\ =\ 0;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{while}\ (cardsPlayed\ <\ HAND\_SIZE)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ card1\ =\ player1Hand[cardsPlayed];}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ card2\ =\ player2Hand[cardsPlayed];}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Raund\ "{}}\ <<\ cardsPlayed\ +\ 1\ <<\ \textcolor{stringliteral}{"{}:\ "{}};}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Player\ 1\ ("{}}\ <<\ card1\ <<\ \textcolor{stringliteral}{"{})\ vs\ Player\ 2\ ("{}}\ <<\ card2\ <<\ \textcolor{stringliteral}{"{})\ -\/\ "{}};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ winner\ =\ determineRoundWinner(card1,\ card2);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (winner\ ==\ 1)\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Player\ 1\ WIN!"{}}\ <<\ endl;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ player1Discard[discardCount1++]\ =\ card1;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ player1Discard[discardCount1++]\ =\ card2;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (winner\ ==\ 2)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Player\ 2\ WIN!"{}}\ <<\ endl;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ player1Discard[discardCount2++]\ =\ card1;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ player1Discard[discardCount2++]\ =\ card2;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}DRAW"{}}\ <<\ endl;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ player1Discard[discardCount1++]\ =\ card1;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ player1Discard[discardCount2++]\ =\ card2;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ cardsPlayed++;}
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{comment}{//\ Функция\ для\ вывода\ результатов}}
+\DoxyCodeLine{00092\ \textcolor{keywordtype}{void}\ printResults(\textcolor{keywordtype}{int}\ player1Discard[],}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{int}\ discardCount1,\ \textcolor{keywordtype}{int}\ discardCount2)\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n===\ game\ results\ ==="{}}\ <<\ endl;}
+\DoxyCodeLine{00095\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}player\ 1:\ "{}}\ <<\ discardCount1\ <<\ \textcolor{stringliteral}{"{}\ thrown\ cards"{}}\ <<\ endl;}
+\DoxyCodeLine{00096\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}player\ 2:\ "{}}\ <<\ discardCount2\ <<\ \textcolor{stringliteral}{"{}\ thrown\ cards"{}}\ <<\ endl;}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{if}\ (discardCount1\ >\ discardCount2)\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Player\ 1\ WIN!"{}}\ <<\ endl;}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (discardCount2\ >\ discardCount1)\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Player\ 2\ WIN!"{}}\ <<\ endl;}
+\DoxyCodeLine{00103\ \ \ \ \ \}}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}even!"{}}\ <<\ endl;}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ \ \ \ \ cout\ <<\ endl;}
+\DoxyCodeLine{00108\ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{keywordtype}{int}\ main()\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{int}\ deck[DECK\_SIZE];\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{int}\ player1Hand[HAND\_SIZE];\ \ \ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{int}\ player2Hand[HAND\_SIZE];\ \ \ \ \ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{int}\ playerDiscard[DECK\_SIZE];\ \ \ \ \ }
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{int}\ discardCount1\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{int}\ discardCount2\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ initializeAndShuffleDeck(deck);}
+\DoxyCodeLine{00120\ \ \ \ \ dealCards(deck,\ player1Hand,\ player2Hand);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ playGame(player1Hand,\ player2Hand,}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ playerDiscard,discardCount1,\ discardCount2);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ printResults(playerDiscard,\ discardCount1,\ discardCount2);}
+\DoxyCodeLine{00126\ \ \ \ \ Timer\ timer;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ std::this\_thread::sleep\_for(std::chrono::seconds(5));}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{double}\ elapsed\_time\ =\ timer.elapsed();}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00132\ \}}
+
+\end{DoxyCode}
