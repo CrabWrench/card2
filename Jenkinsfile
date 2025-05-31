@@ -29,18 +29,10 @@ pipeline {
                 script {
                     // Здесь добавьте команду для запуска ваших тестов (если есть)
                     // Например, если вы используете Google Test
-                    bat 'cd .\\${CONFIGURATION} && card2.exe'
+                    bat 'C:\GitHub\card2\x64\card2.exe'
                 }
             }
         }
-
-        stage('Archive Artifacts') {
-            steps {
-                // Архивируем артефакты сборки
-                archiveArtifacts artifacts: 'build/${CONFIGURATION}/*', fingerprint: true
-            }
-        }
-    }
 
     post {
         success {
