@@ -21,7 +21,7 @@ pipeline
         {
             steps {
                 script {
-                    bat 'C:\ProgramData\Jenkins\.jenkins\workspace\HEAVEN_OR_HELL>card2.sln /p:Configuration=Release'
+                    bat "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe\ ${SOLUTION_FILE} /p:Configuration=${CONFIGURATION}"
                 }
             }
         }
