@@ -21,7 +21,7 @@ pipeline
         {
             steps {
                 script {
-                    bat "${SOLUTION_FILE} /p:Configuration=${CONFIGURATION}"
+                    bat 'C:\ProgramData\Jenkins\.jenkins\workspace\HEAVEN_OR_HELL>card2.sln /p:Configuration=Release'
                 }
             }
         }
