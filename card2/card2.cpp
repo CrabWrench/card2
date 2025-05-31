@@ -1,8 +1,28 @@
 ﻿#include <iostream>
-#include <cstdlib>
-#include <ctime>
 #include <algorithm>
+#include <ctime>
+#include <chrono>
+#include <thread>
 
+class Timer {
+public:
+    Timer() {
+        start_time = std::chrono::steady_clock::now();
+    }
+
+    void reset() {
+        start_time = std::chrono::steady_clock::now();
+    }
+
+    double elapsed() {
+        auto end_time = std::chrono::steady_clock::now();
+        std::chrono::duration<double> elapsed_seconds = end_time - start_time;
+        return elapsed_seconds.count();
+    }
+
+private:
+    std::chrono::steady_clock::time_point start_time;
+};
 using namespace std;
 
 const int DECK_SIZE = 36;
@@ -103,8 +123,10 @@ int main() {
         playerDiscard,discardCount1, discardCount2);
 
     printResults(playerDiscard, discardCount1, discardCount2);
-    int ex;
-    cin >> ex;
+    Timer timer;
 
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+
+    double elapsed_time = timer.elapsed();
     return 0;
 }
